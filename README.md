@@ -2,7 +2,7 @@
 
 # xSqlIPs
 
-The **xSqlPs** module contains the **xSqlServerInstall**, **xSqlHAService**, **xSqlHAEndpoint**, **xSqlHAGroup**, and **xWaitForSqlHAGroup** DSC resources for installing and configuring a SQL Server. 
+The **xSqlIPs** module contains the **xSqlServerInstall**, **xSqlHAService**, **xSqlHAEndpoint**, **xSqlHAGroup**, and **xWaitForSqlHAGroup** DSC resources for installing and configuring a SQL Server. 
 
 ## Contributing
 Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
