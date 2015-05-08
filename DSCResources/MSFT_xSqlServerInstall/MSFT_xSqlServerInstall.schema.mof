@@ -20,4 +20,3 @@ class MSFT_xSqlServerInstall : OMI_BaseResource
     [write, Description("Specify logins to be members of the sysadmin role.")] string SysAdminAccounts;
     [write, Description("Specify the account for SQL server agent service.")] string AgentSvcAccount;
 };
-
