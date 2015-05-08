@@ -31,8 +31,20 @@ If the HA group does not exist it will create one with the given name on given S
 * **InstanceName**: The name of the SQL instance.
 * **SourcePath**: The share path of SQL server software.
 * **SourcePathCredential**: The credential that the VM could use to access a net share of SQL server software.
+* **VersionID**: The numeric value of the SQL version being installed. Default is 120
 * **Features**: List of names of SQL Server features to install.
 * **SqlAdministratorCredential**: The SQL Server Administrator credential.
+* **UpdateEnabled**: Controls if the install media should check for updates
+* **SvcAccount**: Specifies the service account for SQL DB Engine
+* **SysAdminAccounts**: Specifies the list of accounts to be added as sysadmins during install
+* **AgentSvcAccount**: Specifies the service account for SQL Agent
+* **SqlCollation**: Specifies the collation for the instance
+* **InstallSqlDataDir**: The path to install the system dbs to
+* **SqlTempDBDir**: The path for TempDB .mdf and .ldf
+* **SqlUserDBDir**: The default path for all User database .mdf/.ndf files
+* **SqlUserDBLogDir**: The default path for all User database .ldf files
+* **SqlBackupDir**: The default backup path for the instance
+
 
 ### xSqlHAService
 
