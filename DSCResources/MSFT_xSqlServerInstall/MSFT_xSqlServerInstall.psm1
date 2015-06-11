@@ -2,6 +2,8 @@
 # xSQLServerInstall: DSC resource to install Sql Server Enterprise version.
 #
 
+# Controls the default version identifier in paramters.
+$DefaultVersionID = "120";
 
 #
 # The Get-TargetResource cmdlet.
@@ -19,7 +21,7 @@ function Get-TargetResource
 
         [PSCredential] $SourcePathCredential,
         
-        [string]$VersionID="120",
+        [string]$VersionID=$DefaultVersionID,
 
         [string] $Features="SQLEngine,SSMS",
 
@@ -78,8 +80,8 @@ function Set-TargetResource
 
         [PSCredential] $SourcePathCredential,
         
-        [string]$VersionID="120",
-
+        [string]$VersionID=$DefaultVersionID,
+        
         [string] $Features="SQLEngine,SSMS",
 
         [PSCredential] $SqlAdministratorCredential,
@@ -269,7 +271,7 @@ function Test-TargetResource
 
         [PSCredential] $SourcePathCredential,
         
-        [string]$VersionID="120",
+        [string]$VersionID=$DefaultVersionID,
 
         [string] $Features="SQLEngine,SSMS",
 
