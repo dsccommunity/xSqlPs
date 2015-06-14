@@ -25,6 +25,7 @@ Therefore, DSC resources that install SQL Enterprise require .NET 3.5 sources to
 * **xSqlHAGroup**configures an SQL HA group. 
 If the HA group does not exist it will create one with the given name on given SQL instance and add the HA group database(s) to local SQL instance.
 * **xWaitForSqlHAGroup** waits for an SQL HA group to be ready by checking the state of the HA group of a given name in a given interval till either the HA group is discoverable or the number of retries reached its maximum.  
+* **xSqlAlias** configures Client Aliases in both native and wow6432node paths. Supports both tcp and named pipe protocols.
 
 ### xSqlServerInstall
 
@@ -79,6 +80,14 @@ Each database can belong to only one HA group.
 * **InstanceName**: The name of SQL instance.
 * **DomainCredential**: Domain credential could get list of cluster nodes.
 * **SqlAdministratorCredential**: SQL Server Administrator credential .
+
+### xSqlAlias
+
+* **SQLServerName**: The name of Alias (e.g. svr01\inst01).
+* **ServerName**: The name of real server.
+* **Protocol**: The protocol of either tcp or np (named pipes).
+* **RetryCount**: Maximum number of retries to check HA group existency.
+* **TCPPort**: The tcp port of the instance.
 
 ## Versions
 
