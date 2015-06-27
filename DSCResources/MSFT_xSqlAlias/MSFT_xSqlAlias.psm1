@@ -1,4 +1,3 @@
-﻿
 #
 # xSqlAlias: DSC resource to configure Client Aliases
 #
