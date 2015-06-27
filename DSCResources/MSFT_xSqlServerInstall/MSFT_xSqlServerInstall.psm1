@@ -38,10 +38,10 @@ function Get-TargetResource
         [string] $SqlUserDBLogDir = $NULL, 
         [string] $SqlBackupDir = $NULL
     )
-
+    
     $list = Get-Service -Name MSSQL*
     $retInstanceName = $null
-
+    
     if ($InstanceName -eq "MSSQLSERVER")
     {
         if ($list.Name -contains "MSSQLSERVER")
@@ -301,6 +301,7 @@ function NetUse
     param
     (   
         [parameter(Mandatory)] 
+        [ValidateNotNullOrEmpty()]
         [string] $SharePath,
         
         [PSCredential]$SharePathCredential,
