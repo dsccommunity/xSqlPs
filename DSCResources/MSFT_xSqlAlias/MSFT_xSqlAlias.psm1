@@ -101,8 +101,13 @@ function Set-TargetResource
             #Update the registry
             if (Test-Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo')
             {
-                Write-Debug -Message 'Set-ItemProperty';
-                Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -Value $ItemValue;
+                Write-Debug -Message 'Check if value requires changing';
+                $CurrentValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
+                if ($ItemValue -ne $CurrentValue)
+                {
+                    Write-Debug -Message 'Set-ItemProperty';
+                    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -Value $ItemValue;
+                }
             }
             else
             {
@@ -119,8 +124,13 @@ function Set-TargetResource
                 Write-Debug -Message 'Is 64Bit';
                 if (Test-Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo')
                 {
-                    Write-Debug -Message 'Set-ItemProperty';
-                    Set-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -Value $ItemValue;
+                    Write-Debug -Message 'Check if value requires changing';
+                    $CurrentValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
+                    if ($ItemValue -ne $CurrentValue)
+                    {
+                        Write-Debug -Message 'Set-ItemProperty';
+                        Set-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -Value $ItemValue;
+                    }
                 }
                 else
                 {
@@ -195,22 +205,26 @@ function Test-TargetResource
 
     if (Test-Path -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo')
     {
+        Write-Debug -Message 'Alias registry container exists';
         if ($null -ne (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue))
         {
+            Write-Debug -Message 'Existing alias found';
             if ($Ensure -eq 'Present')
             {
                 $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
-            
+                
                 $ItemConfig = $ItemValue."$SQLServerName" -split ',';
 
                 if ($Protocol -eq 'NP')
                 {
+                    Write-Debug -Message 'Named Pipes';
                     if ($ItemConfig[0] -ne 'DBNMPNTW') {$result = $false;}
                     if ($ItemConfig[1] -ne "\\$ServerName\PIPE\sql\query") {$result = $false;}
                 }
 
                 if ($Protocol -eq 'TCP')
                 {
+                    Write-Debug -Message 'TCP';
                     if ($ItemConfig[0] -ne 'DBMSSOCN') {$result = $false;}
                     if ($ItemConfig[1] -ne $ServerName) {$result = $false;}
                     if ($ItemConfig[2] -ne $TCPPort) {$result = $false;}
@@ -219,20 +233,24 @@ function Test-TargetResource
                 #If this is a 64 bit machine also check Wow6432Node
                 if ((Get-Wmiobject -class win32_OperatingSystem).OSArchitecture -eq '64-bit')
                 {
+                    Write-Debug -Message 'Wow6432Node';
                     if ($null -ne (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue))
                     {
+                        Write-Debug -Message 'Existing alias found';
                         $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
 
                         $ItemConfig = $ItemValue."$SQLServerName" -split ',';
 
                         if ($Protocol -eq 'NP')
                         {
+                            Write-Debug -Message 'Named Pipes';
                             if ($ItemConfig[0] -ne 'DBNMPNTW') {$result = $false;}
                             if ($ItemConfig[1] -ne "\\$ServerName\PIPE\sql\query") {$result = $false;}
                         }
 
                         if ($Protocol -eq 'TCP')
                         {
+                            Write-Debug -Message 'TCP';
                             if ($ItemConfig[0] -ne 'DBMSSOCN') {$result = $false;}
                             if ($ItemConfig[1] -ne $ServerName) {$result = $false;}
                             if ($ItemConfig[2] -ne $TCPPort) {$result = $false;}
