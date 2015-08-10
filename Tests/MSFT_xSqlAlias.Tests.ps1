@@ -1,12 +1,5 @@
 ﻿Import-Module "$PSScriptRoot\..\DSCResources\MSFT_xSqlAlias\MSFT_xSqlAlias.psm1" -Prefix 'xSqlAlias' -Force
 
-Describe 'Schema' {
-    it 'SQLServerName should be mandatory with null value by default.' {
-        $xSqlAliasResource = Get-DscResource -Name xSqlAlias
-        $xSqlAliasResource.Properties.Where{$_.Name -eq 'SQLServerName'}.IsMandatory | should be $true
-        $xSqlAliasResource.Properties.Where{$_.Name -eq 'SQLServerName'}.Values | should be $null
-    }
-}
 Describe 'Get-TargetResource'{
     Mock -ModuleName MSFT_xSqlAlias -CommandName Get-ItemProperty -MockWith {
         Write-Output 'DBMSSOCN,localhost,1433'
