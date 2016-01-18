@@ -95,6 +95,11 @@ Each database can belong to only one HA group.
 
 * Updated xSqlServerInstall Set-TargetResource to resolve infinite-restart issue reported 
 
+### Unreleased
+
+* Added the resource xSqlAlias
+* Updated xSqlServerInstall to allow greater control over install paths and alignment to best practices
+
 ### 1.1.2.0
 
 * Updated xSQLServerInstall to align with preferred SQL security practices, specifically not adding System account as sysadmin.

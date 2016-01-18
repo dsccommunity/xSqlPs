@@ -140,7 +140,7 @@ function Set-TargetResource
     }
     else
     {
-        $cmd += " /SQLSYSADMINACCOUNTS='builtin\administrators' "
+        $cmd += " /SQLSYSADMINACCOUNTS=`"builtin\administrators`" "
     }
     
     if ($SvcAccount)
@@ -160,29 +160,30 @@ function Set-TargetResource
 
     if ($InstallSqlDataDir)
     {
-        $cmd += " /INSTALLSQLDATADIR=$InstallSqlDataDir "
+        $cmd += " /INSTALLSQLDATADIR=`"$InstallSqlDataDir`" "
     }
 
     if ($SqlTempDBDir)
     {
-        $cmd += " /SQLTEMPDBDIR=$SqlTempDBDir /SQLTEMPDBLOGDIR=$SqlTempDBDir "
+        $cmd += " /SQLTEMPDBDIR=`"$SqlTempDBDir`" /SQLTEMPDBLOGDIR=`"$SqlTempDBDir`" "
     }
 
     if ($SqlUserDBDir)
     {
-        $cmd += " /SQLUSERDBDIR=$SqlUserDBDir "
+        $cmd += " /SQLUSERDBDIR=`"$SqlUserDBDir`" "
     }
 
     if ($SqlUserDBLogDir)
     {
-        $cmd += " /SQLUSERDBLOGDIR=$SqlUserDBLogDir "
+        $cmd += " /SQLUSERDBLOGDIR=`"$SqlUserDBLogDir`" "
     }
 
     if ($SqlBackupDir)
     {
-        $cmd += " /SQLBACKUPDIR=$SqlBackupDir "
+        $cmd += " /SQLBACKUPDIR=`"$SqlBackupDir`" "
     }
     
+    Write-Verbose "SQL install cmdline: $cmd";
     $cmd += " > $logFile 2>&1 "
 
     NetUse -SharePath $SourcePath -SharePathCredential $SourcePathCredential -Ensure "Present";
