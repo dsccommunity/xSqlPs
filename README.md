@@ -2,7 +2,7 @@
 
 # xSqlIPs
 
-The **xSqlIPs** module contains the **xSqlServerInstall**, **xSqlHAService**, **xSqlHAEndpoint**, **xSqlHAGroup**, and **xWaitForSqlHAGroup** DSC resources for installing and configuring a SQL Server. 
+The **xSqlIPs** module contains the **xSqlServerInstall**, **xSqlHAService**, **xSqlHAEndpoint**, **xSqlHAGroup**, **xWaitForSqlHAGroup**, and **xSqlAlias** DSC resources for installing and configuring a SQL Server. 
 
 ## Contributing
 Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
@@ -25,14 +25,27 @@ Therefore, DSC resources that install SQL Enterprise require .NET 3.5 sources to
 * **xSqlHAGroup**configures an SQL HA group. 
 If the HA group does not exist it will create one with the given name on given SQL instance and add the HA group database(s) to local SQL instance.
 * **xWaitForSqlHAGroup** waits for an SQL HA group to be ready by checking the state of the HA group of a given name in a given interval till either the HA group is discoverable or the number of retries reached its maximum.  
+* **xSqlAlias** configures Client Aliases in both native and wow6432node paths. Supports both tcp and named pipe protocols.
 
 ### xSqlServerInstall
 
 * **InstanceName**: The name of the SQL instance.
 * **SourcePath**: The share path of SQL server software.
 * **SourcePathCredential**: The credential that the VM could use to access a net share of SQL server software.
+* **VersionID**: The numeric value of the SQL version being installed. Default is 120
 * **Features**: List of names of SQL Server features to install.
 * **SqlAdministratorCredential**: The SQL Server Administrator credential.
+* **UpdateEnabled**: Controls if the install media should check for updates
+* **SvcAccount**: Specifies the service account for SQL DB Engine
+* **SysAdminAccounts**: Specifies the list of accounts to be added as sysadmins during install
+* **AgentSvcAccount**: Specifies the service account for SQL Agent
+* **SqlCollation**: Specifies the collation for the instance
+* **InstallSqlDataDir**: The path to install the system dbs to
+* **SqlTempDBDir**: The path for TempDB .mdf and .ldf
+* **SqlUserDBDir**: The default path for all User database .mdf/.ndf files
+* **SqlUserDBLogDir**: The default path for all User database .ldf files
+* **SqlBackupDir**: The default backup path for the instance
+
 
 ### xSqlHAService
 
@@ -68,7 +81,22 @@ Each database can belong to only one HA group.
 * **DomainCredential**: Domain credential could get list of cluster nodes.
 * **SqlAdministratorCredential**: SQL Server Administrator credential .
 
+### xSqlAlias
+
+* **SQLServerName**: The name of Alias (e.g. svr01\inst01).
+* **ServerName**: The name of real server.
+* **Protocol**: The protocol of either tcp or np (named pipes).
+* **RetryCount**: Maximum number of retries to check HA group existency.
+* **TCPPort**: The tcp port of the instance.
+
 ## Versions
+
+### Unreleased
+
+### 1.1.0.0
+
+* Added the resource xSqlAlias
+* Updated xSqlServerInstall to allow greater control over install paths and alignment to best practices
 
 ### 1.1.3.1
 
