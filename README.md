@@ -93,7 +93,7 @@ Each database can belong to only one HA group.
 
 ### Unreleased
 
-### 1.1.0.0
+### 1.2.0.0
 
 * Added the resource xSqlAlias
 * Updated xSqlServerInstall to allow greater control over install paths and alignment to best practices

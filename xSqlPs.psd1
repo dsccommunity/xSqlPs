@@ -3,7 +3,7 @@
 @{
 
 
-ModuleVersion = '1.1.0.0'
+ModuleVersion = '1.2.0.0'
 
 GUID = 'abee25c0-d40a-4bf2-a04e-ed059aba377b'
 
