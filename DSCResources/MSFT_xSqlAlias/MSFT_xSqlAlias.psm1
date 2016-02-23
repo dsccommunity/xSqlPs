@@ -27,7 +27,7 @@ function Get-TargetResource
 
     if ($null -ne (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue))
     {
-        $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
+        $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue;
         
         $returnValue.SQLServerName = $SQLServerName;
         $ItemConfig = $ItemValue."$SQLServerName" -split ',';
@@ -48,8 +48,6 @@ function Get-TargetResource
     $returnValue;
     
 }
-
-
 
 
 
@@ -102,7 +100,7 @@ function Set-TargetResource
             if (Test-Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo')
             {
                 Write-Debug -Message 'Check if value requires changing';
-                $CurrentValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
+                $CurrentValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue;
                 if ($ItemValue -ne $CurrentValue)
                 {
                     Write-Debug -Message 'Set-ItemProperty';
@@ -112,7 +110,9 @@ function Set-TargetResource
             else
             {
                 Write-Debug -Message 'New-Item';
-                New-Item -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' | Out-Null;
+                New-Item -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\' | Out-Null;
+                New-Item -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\' | Out-Null;
+                New-Item -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo'| Out-Null;
                 Write-Debug -Message 'New-ItemProperty';
                 New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -Value $ItemValue | Out-Null;
             }
@@ -125,7 +125,7 @@ function Set-TargetResource
                 if (Test-Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo')
                 {
                     Write-Debug -Message 'Check if value requires changing';
-                    $CurrentValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
+                    $CurrentValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue;
                     if ($ItemValue -ne $CurrentValue)
                     {
                         Write-Debug -Message 'Set-ItemProperty';
@@ -135,7 +135,9 @@ function Set-TargetResource
                 else
                 {
                     Write-Debug -Message 'New-Item';
-                    New-Item -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo';
+                    New-Item -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\'| Out-Null;
+                    New-Item -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\'| Out-Null;
+                    New-Item -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo'| Out-Null;
                     Write-Debug -Message 'New-ItemProperty';
                     New-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -Value $ItemValue;
                 }
@@ -168,8 +170,6 @@ function Set-TargetResource
 
 
 }
-
-
 
 
 
@@ -211,7 +211,7 @@ function Test-TargetResource
             Write-Debug -Message 'Existing alias found';
             if ($Ensure -eq 'Present')
             {
-                $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
+                $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue;
                 
                 $ItemConfig = $ItemValue."$SQLServerName" -split ',';
 
@@ -237,7 +237,7 @@ function Test-TargetResource
                     if ($null -ne (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue))
                     {
                         Write-Debug -Message 'Existing alias found';
-                        $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName";
+                        $ItemValue = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo' -Name "$SQLServerName" -ErrorAction SilentlyContinue;
 
                         $ItemConfig = $ItemValue."$SQLServerName" -split ',';
 
@@ -290,7 +290,4 @@ function Test-TargetResource
 
 
 Export-ModuleMember -Function *-TargetResource
-
-
-
 
