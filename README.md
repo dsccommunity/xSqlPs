@@ -92,6 +92,8 @@ Each database can belong to only one HA group.
 ## Versions
 
 ### Unreleased
+
+### 1.3.0.0
 * MSFT_xSqlAlias: Fixed bugs when creating new registry keys
 
 ### 1.2.0.0
