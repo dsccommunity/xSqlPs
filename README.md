@@ -83,7 +83,7 @@ Each database can belong to only one HA group.
 
 ### xSqlAlias
 
-* **SQLServerName**: The name of Alias (e.g. svr01\inst01).
+* **Name**: The name of Alias (e.g. svr01\inst01).
 * **ServerName**: The name of real server.
 * **Protocol**: The protocol of either tcp or np (named pipes).
 * **RetryCount**: Maximum number of retries to check HA group existency.
@@ -92,6 +92,7 @@ Each database can belong to only one HA group.
 ## Versions
 
 ### Unreleased
+* MSFT_xSqlAlias: Fixed bugs when creating new registry keys
 
 ### 1.2.0.0
 
