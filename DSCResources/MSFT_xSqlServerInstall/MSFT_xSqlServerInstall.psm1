@@ -17,26 +17,7 @@ function Get-TargetResource
         
         [parameter(Mandatory)] 
         [ValidateNotNullOrEmpty()]
-        [string] $SourcePath,
-
-        [PSCredential] $SourcePathCredential,
-        
-        [string]$VersionID=$DefaultVersionID,
-
-        [string] $Features="SQLEngine,SSMS",
-
-        [PSCredential] $SqlAdministratorCredential,
-        
-        [bool] $UpdateEnabled = $false,
-        [string] $SvcAccount = $NULL,
-        [string] $SysAdminAccounts = $NULL,
-        [string] $AgentSvcAccount = $NULL,
-        [string] $SqlCollation = $NULL,
-        [string] $InstallSqlDataDir = $NULL,
-        [string] $SqlTempDBDir = $NULL,
-        [string] $SqlUserDBDir = $NULL,
-        [string] $SqlUserDBLogDir = $NULL, 
-        [string] $SqlBackupDir = $NULL
+        [string] $SourcePath
     )
     
     $list = Get-Service -Name MSSQL*
@@ -87,9 +68,17 @@ function Set-TargetResource
         [PSCredential] $SqlAdministratorCredential,
         
         [bool] $UpdateEnabled = $false,
-        [string] $SvcAccount = $NULL,
         [string] $SysAdminAccounts = $NULL,
-        [string] $AgentSvcAccount = $NULL,
+        [PSCredential] $SvcAccount = $NULL,
+        [PSCredential] $AnalysisSvcAccount = $NULL,
+        [PSCredential] $IntegrationSvcAccount = $NULL,
+        [PSCredential] $ReportingSvcAccount = $NULL,
+        [PSCredential] $AgentSvcAccount = $NULL,
+        [string] $SvcStartupType = "Automatic", # SQLEngine
+        [string] $AgentStartupType = "Manual", # SQLEngine
+        [string] $AnalysisStartupType = "Automatic", # AS
+        [string] $IntegrationStartupType = "Automatic", # IS
+        [string] $ReportingStartupType = "Automatic", # RS
         [string] $SqlCollation = $NULL,
         [string] $InstallSqlDataDir = $NULL,
         [string] $SqlTempDBDir = $NULL,
@@ -145,12 +134,67 @@ function Set-TargetResource
     
     if ($SvcAccount)
     {
-        $cmd += " /SQLSVCACCOUNT=$SvcAccount "
+        $cmd += " /SQLSVCACCOUNT=$($SvcAccount.UserName) "
+        if ($SvcAccount.GetNetworkCredential().Password -ne "")
+        {
+            $cmd += " /SQLSVCPASSWORD=$($SvcAccount.GetNetworkCredential().Password) "
+        }
     }
     
     if ($AgentSvcAccount)
     {    
-        $cmd += " /AGTSVCACCOUNT=$AgentSvcAccount "
+        $cmd += " /AGTSVCACCOUNT=$($AgentSvcAccount.UserName) "
+        if ($AgentSvcAccount.GetNetworkCredential().Password -ne "")
+        {
+            $cmd += " /AGTSVCPASSWORD=$($AgentSvcAccount.GetNetworkCredential().Password) "
+        }
+    }
+
+    if ($AnalysisSvcAccount)
+    {    
+        $cmd += " /AGTSVCACCOUNT=$($AnalysisSvcAccount.UserName) "
+        if ($AnalysisSvcAccount.GetNetworkCredential().Password -ne "")
+        {
+            $cmd += " /ASSVCPASSWORD=$($AnalysisSvcAccount.GetNetworkCredential().Password) "
+        }
+    }
+
+    if ($IntegrationSvcAccount)
+    {    
+        $cmd += " /AGTSVCACCOUNT=$($IntegrationSvcAccount.UserName) "
+        if ($IntegrationSvcAccount.GetNetworkCredential().Password -ne "")
+        {
+            $cmd += " /ISSVCPASSWORD=$($IntegrationSvcAccount.GetNetworkCredential().Password) "
+        }
+    }
+
+    if ($ReportingSvcAccount)
+    {    
+        $cmd += " /AGTSVCACCOUNT=$($ReportingSvcAccount.UserName) "
+        if ($ReportingSvcAccount.GetNetworkCredential().Password -ne "")
+        {
+            $cmd += " /RSSVCPASSWORD=$($ReportingSvcAccount.GetNetworkCredential().Password) "
+        }
+    }
+    
+    if ($Features -match "SQLENGINE")
+    {
+        $cmd += " /SQLSVCSTARTUPTYPE=$SvcStartupType /AGTSVCSTARTUPTYPE=$AgentStartupType "
+    }
+    
+    if ($Features -match "AS")
+    {
+        $cmd += " /SQLSVCSTARTUPTYPE=$AnalysisStartupType "
+    }
+    
+    if ($Features -match "IS")
+    {
+        $cmd += " /SQLSVCSTARTUPTYPE=$IntegrationStartupType "
+    }
+    
+    if ($Features -match "RS")
+    {
+        $cmd += " /SQLSVCSTARTUPTYPE=$ReportingStartupType "
     }
     
     if ($SqlCollation)
@@ -273,15 +317,23 @@ function Test-TargetResource
         [PSCredential] $SourcePathCredential,
         
         [string]$VersionID=$DefaultVersionID,
-
+        
         [string] $Features="SQLEngine,SSMS",
 
         [PSCredential] $SqlAdministratorCredential,
-
+        
         [bool] $UpdateEnabled = $false,
-        [string] $SvcAccount = $NULL,
         [string] $SysAdminAccounts = $NULL,
-        [string] $AgentSvcAccount = $NULL,
+        [PSCredential] $SvcAccount = $NULL,
+        [PSCredential] $AnalysisSvcAccount = $NULL,
+        [PSCredential] $IntegrationSvcAccount = $NULL,
+        [PSCredential] $ReportingSvcAccount = $NULL,
+        [PSCredential] $AgentSvcAccount = $NULL,
+        [string] $SvcStartupType = "Automatic", # SQLEngine
+        [string] $AgentStartupType = "Manual", # SQLEngine
+        [string] $AnalysisStartupType = "Automatic", # AS
+        [string] $IntegrationStartupType = "Automatic", # IS
+        [string] $ReportingStartupType = "Automatic", # RS
         [string] $SqlCollation = $NULL,
         [string] $InstallSqlDataDir = $NULL,
         [string] $SqlTempDBDir = $NULL,
@@ -290,7 +342,7 @@ function Test-TargetResource
         [string] $SqlBackupDir = $NULL
     )
 
-    $info = Get-TargetResource -InstanceName $InstanceName -SourcePath $SourcePath -SqlAdministratorCredential $SqlAdministratorCredential
+    $info = Get-TargetResource -InstanceName $InstanceName -SourcePath $SourcePath
     
     return ($info.InstanceName -eq $InstanceName)
 }
