@@ -74,10 +74,15 @@ function Set-TargetResource
         [PSCredential] $IntegrationSvcAccount = $NULL,
         [PSCredential] $ReportingSvcAccount = $NULL,
         [PSCredential] $AgentSvcAccount = $NULL,
+        [ValidateSet("Automatic", "Disabled", "Manual")]
         [string] $SvcStartupType = "Automatic", # SQLEngine
+        [ValidateSet("Automatic", "Disabled", "Manual")]
         [string] $AgentStartupType = "Manual", # SQLEngine
+        [ValidateSet("Automatic", "Disabled", "Manual")]
         [string] $AnalysisStartupType = "Automatic", # AS
+        [ValidateSet("Automatic", "Disabled", "Manual")]
         [string] $IntegrationStartupType = "Automatic", # IS
+        [ValidateSet("Automatic", "Disabled", "Manual")]
         [string] $ReportingStartupType = "Automatic", # RS
         [string] $SqlCollation = $NULL,
         [string] $InstallSqlDataDir = $NULL,
