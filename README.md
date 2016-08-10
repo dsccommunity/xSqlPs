@@ -4,9 +4,6 @@
 
 The **xSqlIPs** module contains the **xSqlServerInstall**, **xSqlHAService**, **xSqlHAEndpoint**, **xSqlHAGroup**, **xWaitForSqlHAGroup**, and **xSqlAlias** DSC resources for installing and configuring a SQL Server. 
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
 ## Contributing
 Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
 
@@ -95,7 +92,6 @@ Each database can belong to only one HA group.
 ## Versions
 
 ### Unreleased
-* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
 
 ### 1.3.0.0
 * MSFT_xSqlAlias: Fixed bugs when creating new registry keys
