@@ -3,7 +3,7 @@
 @{
 
 
-ModuleVersion = '1.3.0.0'
+ModuleVersion = '1.4.0.0'
 
 GUID = 'abee25c0-d40a-4bf2-a04e-ed059aba377b'
 
@@ -33,7 +33,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* MSFT_xSqlAlias: Fixed bugs when creating new registry keys
+        ReleaseNotes = '* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
 
 '
 
@@ -41,3 +41,4 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+

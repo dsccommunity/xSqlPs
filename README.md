@@ -95,6 +95,8 @@ Each database can belong to only one HA group.
 ## Versions
 
 ### Unreleased
+
+### 1.4.0.0
 * Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
 
 ### 1.3.0.0
