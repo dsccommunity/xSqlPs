@@ -95,7 +95,10 @@ Each database can belong to only one HA group.
 ## Versions
 
 ### Unreleased
+
+### 1.4.0.0
 * Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
+* Fixed bugs in xSqlAlias that prevented the succesful creation of the aliases and caused errors.
 
 ### 1.3.0.0
 * MSFT_xSqlAlias: Fixed bugs when creating new registry keys
