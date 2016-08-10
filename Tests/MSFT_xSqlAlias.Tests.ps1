@@ -23,7 +23,7 @@ Describe 'Set-TargetResource'{
     }
 
     Mock -ModuleName MSFT_xSqlAlias -CommandName Get-ItemProperty -MockWith {
-        Write-Output 'DBMSSOCN,localhost,52002'
+        return @{ myServerAlias = 'DBMSSOCN,localhost,52002'}
     } 
     
     Mock -ModuleName MSFT_xSqlAlias -CommandName Set-ItemProperty -MockWith {
