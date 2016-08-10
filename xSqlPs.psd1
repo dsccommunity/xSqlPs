@@ -34,6 +34,7 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
+* Fixed bugs in xSqlAlias that prevented the succesful creation of the aliases and caused errors.
 
 '
 
