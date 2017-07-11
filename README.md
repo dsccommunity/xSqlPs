@@ -1,3 +1,9 @@
+# **THIS MODULE HAS BEEN DEPRECATED**
+
+It will no longer be released.  
+Please use [xSqlServer](https://github.com/PowerShell/xSqlServer) instead.  
+Please refer to the table in [this issue](https://github.com/PowerShell/xSqlPs/issues/3#issuecomment-294965923) for resources with the same functionality in xSqlServer.
+
 [![Build status](https://ci.appveyor.com/api/projects/status/0mcha27s748sgc75/branch/master?svg=true)](https://ci.appveyor.com/project/PowerShell/xsqlps/branch/master)
 
 # xSqlIPs
