@@ -1,14 +1,14 @@
 # **THIS MODULE HAS BEEN DEPRECATED**
 
 It will no longer be released.  
-Please use [xSqlServer](https://github.com/PowerShell/xSqlServer) instead.  
+Please use [SqlServerDsc](https://github.com/PowerShell/SqlServerDsc) instead.  
 Please refer to the table in [this issue](https://github.com/PowerShell/xSqlPs/issues/3#issuecomment-294965923) for resources with the same functionality in xSqlServer.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0mcha27s748sgc75/branch/master?svg=true)](https://ci.appveyor.com/project/PowerShell/xsqlps/branch/master)
 
-# xSqlIPs
+# xSqlPs
 
-The **xSqlIPs** module contains the **xSqlServerInstall**, **xSqlHAService**, **xSqlHAEndpoint**, **xSqlHAGroup**, **xWaitForSqlHAGroup**, and **xSqlAlias** DSC resources for installing and configuring a SQL Server. 
+The **xSqlPs** module contains the **xSqlServerInstall**, **xSqlHAService**, **xSqlHAEndpoint**, **xSqlHAGroup**, **xWaitForSqlHAGroup**, and **xSqlAlias** DSC resources for installing and configuring a SQL Server. 
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
